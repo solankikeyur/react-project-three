@@ -11,7 +11,8 @@ import {
 import AxiosInstance from '../AxiosInstance';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loader from './Loader';
-import Error from "./Error";
+import Error from './Error';
+import { Link } from 'react-router-dom';
 
 const Coins = () => {
   const [coins, setCoins] = useState([]);
@@ -20,7 +21,7 @@ const Coins = () => {
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState(false);
 
-  const fetchCoins =  async () => {
+  const fetchCoins = async () => {
     try {
       setLoader(true);
       const { data } = await AxiosInstance.get(
@@ -40,17 +41,19 @@ const Coins = () => {
   };
 
   useEffect(() => {
-    document.title = "Coins";
+    document.title = 'Coins';
     fetchCoins();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
-  if(error) {
-    return <Error message={"Something went wrong. Please try again later."}></Error>
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (error) {
+    return (
+      <Error message={'Something went wrong. Please try again later.'}></Error>
+    );
   }
   if (coins.length === 0) {
     return <Loader show={loader}></Loader>;
   }
-  
+
   return (
     <Container maxW={'container.xl'}>
       <InfiniteScroll
@@ -80,10 +83,10 @@ const Coins = () => {
   );
 };
 
-const Coin = ({ name, image, price }) => {
+const Coin = ({ name, image, price, id }) => {
   return (
     <VStack>
-      
+      <Link to={`/coin/${id}`} >
         <Card
           mt={'6'}
           w={'52'}
@@ -103,6 +106,7 @@ const Coin = ({ name, image, price }) => {
             </VStack>
           </CardBody>
         </Card>
+      </Link>
     </VStack>
   );
 };

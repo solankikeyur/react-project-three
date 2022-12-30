@@ -6,7 +6,7 @@ const Home = () => {
     document.title = "Home";
   }, [])
   return (
-    <Container maxW={'container.xl'}>
+    <Container maxW={'container.md'} mt={'20'}>
       <Card>
         <CardBody>
           <Heading colorScheme={'green'}>Welcome To Crypto Project Three.</Heading>
