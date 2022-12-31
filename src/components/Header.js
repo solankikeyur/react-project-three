@@ -7,13 +7,15 @@ import {
   Box,
   HStack,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import ThemeContext from '../ThemeContext';
+
 
 const Header = () => {
-  const colorScheme = 'green';
+  const colorScheme = useContext(ThemeContext);
   return (
     <HStack h={'55'}>
       <ColorModeSwitcher></ColorModeSwitcher>
@@ -27,15 +29,21 @@ const Header = () => {
             colorScheme={colorScheme}
           />
           <MenuList>
+          <Link to="/">
             <MenuItem>
-              <Link to="/">Home</Link>
+              Home
             </MenuItem>
+            </Link>
+            <Link to="/exchanges">
             <MenuItem>
-              <Link to="/exchanges">Exchanges</Link>
+              Exchanges
             </MenuItem>
+            </Link>
+            <Link to="/coins">
             <MenuItem>
-              <Link to="/coins">Coins</Link>
+              Coins
             </MenuItem>
+            </Link>
           </MenuList>
         </Menu>
       </Box>

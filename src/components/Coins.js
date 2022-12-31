@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Card,
   CardBody,
@@ -13,6 +13,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Loader from './Loader';
 import Error from './Error';
 import { Link } from 'react-router-dom';
+import ThemeContext from "../ThemeContext"
 
 const Coins = () => {
   const [coins, setCoins] = useState([]);
@@ -20,6 +21,7 @@ const Coins = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState(false);
+  const colorScheme = useContext(ThemeContext);
 
   const fetchCoins = async () => {
     try {
@@ -75,6 +77,7 @@ const Coins = () => {
               image={coin.image}
               id={coin.id}
               price={coin.current_price}
+              colorScheme={colorScheme}
             ></Coin>
           ))}
         </HStack>
@@ -83,7 +86,7 @@ const Coins = () => {
   );
 };
 
-const Coin = ({ name, image, price, id }) => {
+const Coin = ({ name, image, price, id , colorScheme}) => {
   return (
     <VStack>
       <Link to={`/coin/${id}`} >
@@ -92,8 +95,8 @@ const Coin = ({ name, image, price, id }) => {
           w={'52'}
           shadow={'lg'}
           _hover={{
-            bgColor: 'green.100',
-            color: 'green.500',
+            bgColor: `${colorScheme}.100`,
+            color: `${colorScheme}.500`,
           }}
         >
           <CardBody>

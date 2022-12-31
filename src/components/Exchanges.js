@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Card,
   CardBody,
@@ -12,6 +12,7 @@ import AxiosInstance from '../AxiosInstance';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loader from './Loader';
 import Error from "./Error";
+import ThemeContext from "../ThemeContext"
 
 const Exchanges = () => {
   const [exchanges, setExchanges] = useState([]);
@@ -19,6 +20,7 @@ const Exchanges = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState(false);
+  const colorScheme = useContext(ThemeContext);
 
   const fetchExchanges =  async () => {
     try {
@@ -72,6 +74,7 @@ const Exchanges = () => {
               image={exchange.image}
               id={exchange.id}
               url={exchange.url}
+              colorScheme={colorScheme}
             ></Exchange>
           ))}
         </HStack>
@@ -80,7 +83,7 @@ const Exchanges = () => {
   );
 };
 
-const Exchange = ({ name, image, url }) => {
+const Exchange = ({ name, image, url, colorScheme }) => {
   return (
     <VStack>
       <a href={url} target={'target'}>
@@ -90,8 +93,8 @@ const Exchange = ({ name, image, url }) => {
           // colorScheme={'green'}
           shadow={'lg'}
           _hover={{
-            bgColor: 'green.100',
-            color: 'green.500',
+            bgColor: `${colorScheme}.100`,
+            color: `${colorScheme}.500`,
           }}
         >
           <CardBody>
